@@ -14,7 +14,10 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import LiquorIcon from '@mui/icons-material/Liquor';
 
-const pages = ['Cocktails', 'Ingredients'];
+const pages = [
+  { label: 'Cocktails', link: '/cocktails?filter=name' },
+  { label: 'Ingredients', link: '/ingredients' },
+];
 
 const Navbar: React.FC = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -82,17 +85,17 @@ const Navbar: React.FC = () => {
               }}
             >
               {pages.map(page => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page.label} onClick={handleCloseNavMenu}>
                   <Typography
                     textAlign="center"
                     component={Link}
-                    to={page.toLowerCase()}
+                    to={page.link}
                     sx={{
                       color: 'inherit',
                       textDecoration: 'none',
                     }}
                   >
-                    {page}
+                    {page.label}
                   </Typography>
                 </MenuItem>
               ))}
@@ -120,13 +123,13 @@ const Navbar: React.FC = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map(page => (
               <Button
-                key={page}
+                key={page.label}
                 onClick={handleCloseNavMenu}
                 component={Link}
-                to={page.toLowerCase()}
+                to={page.link}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.label}
               </Button>
             ))}
           </Box>

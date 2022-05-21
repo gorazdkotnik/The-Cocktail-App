@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Layout from '../../pages/Layout';
 import Cocktails from '../../pages/Cocktails';
+import CocktailDetails from '../../pages/CocktailDetails';
 import Ingredients from '../../pages/Ingredients';
 import NoPage from '../../pages/NoPage';
 
@@ -13,6 +14,7 @@ const RoutesConfig: React.FC = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="/cocktails" />} />
           <Route path="cocktails" element={<Cocktails />} />
+          <Route path="cocktails/:id" element={<CocktailDetails />} />
           <Route path="ingredients" element={<Ingredients />} />
           <Route path="*" element={<NoPage />} />
         </Route>

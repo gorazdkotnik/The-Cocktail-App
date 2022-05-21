@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -35,13 +36,9 @@ const letters = [
   'z',
 ];
 
-interface ICocktailFirstLetterFilterProps {
-  onSearchFirstLetter: (name: string) => void;
-}
+const CocktailFirstLetterFilter: React.FC = () => {
+  const navigate = useNavigate();
 
-const CocktailFirstLetterFilter: React.FC<ICocktailFirstLetterFilterProps> = ({
-  onSearchFirstLetter,
-}) => {
   const [firstCocktailLetter, setFirstCocktailLetter] =
     React.useState<string>('');
 
@@ -57,7 +54,7 @@ const CocktailFirstLetterFilter: React.FC<ICocktailFirstLetterFilterProps> = ({
       return;
     }
 
-    onSearchFirstLetter(firstCocktailLetter);
+    navigate(`/cocktails?filter=firstLetter&value=${firstCocktailLetter}`);
   };
 
   return (

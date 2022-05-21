@@ -1,17 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SearchIcon from '@mui/icons-material/Search';
 
-interface ICocktailNameFilterProps {
-  onSearchName: (name: string) => void;
-}
+const CocktailNameFilter: React.FC = () => {
+  const navigate = useNavigate();
 
-const CocktailNameFilter: React.FC<ICocktailNameFilterProps> = ({
-  onSearchName,
-}) => {
   const [cocktailName, setCocktailName] = React.useState<string>('');
   const [invalidCocktailName, setInvalidCocktailName] =
     React.useState<boolean>(false);
@@ -30,7 +27,7 @@ const CocktailNameFilter: React.FC<ICocktailNameFilterProps> = ({
       return;
     }
 
-    onSearchName(cocktailName);
+    navigate('/cocktails?filter=name&value=' + cocktailName);
   };
 
   return (

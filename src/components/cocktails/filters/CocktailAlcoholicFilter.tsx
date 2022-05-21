@@ -1,27 +1,38 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ToggleButton from '@mui/material/ToggleButton';
 
-interface ICocktailAlcoholicFilterProps {
-  onSearchAlcoholic: (alcoholic: string) => void;
-}
+const CocktailAlcoholicFilter: React.FC = () => {
+  const navigate = useNavigate();
 
-const CocktailAlcoholicFilter: React.FC<ICocktailAlcoholicFilterProps> = ({
-  onSearchAlcoholic,
-}) => {
+  const location = useLocation();
+  const query = React.useMemo(
+    () => new URLSearchParams(location.search),
+    [location]
+  );
+
   const [alcoholic, setAlcoholic] = React.useState<string>('Alcoholic');
 
   React.useEffect(() => {
-    onSearchAlcoholic(alcoholic);
-  }, [alcoholic, onSearchAlcoholic]);
+    const alcoholicValue = query.get('value');
+
+    if (alcoholicValue) {
+      setAlcoholic(alcoholicValue);
+      navigate(`/cocktails?filter=alcoholic&value=${alcoholicValue}`);
+    }
+  }, []);
 
   const onAlcoholicChangeHandler = (
     event: React.ChangeEvent<{}>,
     value: string | null
   ) => {
-    setAlcoholic(value as string);
+    if (value) {
+      setAlcoholic(value as string);
+      navigate(`/cocktails?filter=alcoholic&value=${value}`);
+    }
   };
 
   return (
