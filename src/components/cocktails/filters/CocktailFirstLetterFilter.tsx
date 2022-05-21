@@ -50,7 +50,7 @@ const CocktailFirstLetterFilter: React.FC = () => {
   };
 
   const onSearchClickHandler = () => {
-    if (firstCocktailLetter.trim() === '') {
+    if (!firstCocktailLetter || firstCocktailLetter.trim() === '') {
       return;
     }
 

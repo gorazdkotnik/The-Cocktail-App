@@ -37,8 +37,13 @@ const CocktailList: React.FC<ICocktailListProps> = ({ searchUrl, value }) => {
   React.useEffect(() => {
     setCocktails(data?.drinks);
 
+    if (!data?.drinks) {
+      setPage(1);
+    }
+
     if (data?.drinks) {
-      setNumberOfPages(Math.ceil(data.drinks.length / COCKTAILS_PER_PAGE));
+      const numberOfPages = Math.ceil(data.drinks.length / COCKTAILS_PER_PAGE);
+      setNumberOfPages(numberOfPages);
       setPage(1);
     }
   }, [data]);
@@ -77,6 +82,7 @@ const CocktailList: React.FC<ICocktailListProps> = ({ searchUrl, value }) => {
               count={numberOfPages}
               color="secondary"
               onChange={onPageChangeHandler}
+              page={page}
             />
           </Box>
         </div>

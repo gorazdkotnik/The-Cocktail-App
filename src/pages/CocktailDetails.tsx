@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import useRequest from '../hooks/useRequest';
 
@@ -17,8 +17,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Alert from '@mui/material/Alert';
+import Fab from '@mui/material/Fab';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const CocktailDetails: React.FC = () => {
+  const navigate = useNavigate();
+
   const { id } = useParams();
 
   const { data, loading, error } = useRequest(`/lookup.php?i=${id}`);
@@ -74,6 +78,15 @@ const CocktailDetails: React.FC = () => {
 
   return (
     <Container maxWidth="md" sx={{ p: 5 }}>
+      <Fab
+        color="secondary"
+        aria-label="add"
+        sx={{ mb: 3 }}
+        onClick={() => navigate(-1)}
+      >
+        <ArrowBackIcon />
+      </Fab>
+
       {!cocktail && !loading && (
         <Alert severity="info">Cannot find this cocktail.</Alert>
       )}
