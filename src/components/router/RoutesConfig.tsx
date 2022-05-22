@@ -12,7 +12,7 @@ const RoutesConfig: React.FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Navigate to="/cocktails" />} />
+          <Route index element={<Navigate to="/cocktails?filter=name" />} />
           <Route path="cocktails" element={<Cocktails />} />
           <Route path="cocktails/:id" element={<CocktailDetails />} />
           <Route path="ingredients" element={<Ingredients />} />

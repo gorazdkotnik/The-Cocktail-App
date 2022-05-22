@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -39,8 +39,15 @@ const letters = [
 const CocktailFirstLetterFilter: React.FC = () => {
   const navigate = useNavigate();
 
-  const [firstCocktailLetter, setFirstCocktailLetter] =
-    React.useState<string>('');
+  const location = useLocation();
+  const query = React.useMemo(
+    () => new URLSearchParams(location.search),
+    [location]
+  );
+
+  const [firstCocktailLetter, setFirstCocktailLetter] = React.useState<string>(
+    query.get('value') || 'a'
+  );
 
   const onFirstCocktailLetterChangeHandler = (
     event: React.ChangeEvent<{}>,
@@ -64,6 +71,7 @@ const CocktailFirstLetterFilter: React.FC = () => {
           disablePortal
           options={letters}
           onChange={onFirstCocktailLetterChangeHandler}
+          value={firstCocktailLetter}
           renderInput={params => (
             <TextField {...params} label="First Letter" variant="filled" />
           )}

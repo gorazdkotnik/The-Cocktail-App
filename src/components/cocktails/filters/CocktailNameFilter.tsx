@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -9,7 +9,16 @@ import SearchIcon from '@mui/icons-material/Search';
 const CocktailNameFilter: React.FC = () => {
   const navigate = useNavigate();
 
-  const [cocktailName, setCocktailName] = React.useState<string>('');
+  const location = useLocation();
+  const query = React.useMemo(
+    () => new URLSearchParams(location.search),
+    [location]
+  );
+
+  const [cocktailName, setCocktailName] = React.useState<string>(
+    query.get('value') || ''
+  );
+
   const [invalidCocktailName, setInvalidCocktailName] =
     React.useState<boolean>(false);
 
@@ -39,6 +48,7 @@ const CocktailNameFilter: React.FC = () => {
           label="Search cocktail by name"
           variant="filled"
           onChange={onCocktailNameChangeHandler}
+          value={cocktailName}
           helperText={
             invalidCocktailName ? 'Please provide a cocktail name.' : ''
           }
