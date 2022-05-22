@@ -83,7 +83,7 @@ const CocktailFirstLetterFilter: React.FC = () => {
           fullWidth
           startIcon={<SearchIcon />}
           onClick={onSearchClickHandler}
-          disabled={firstCocktailLetter === ''}
+          disabled={!firstCocktailLetter}
         >
           Search
         </Button>
