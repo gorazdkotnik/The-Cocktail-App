@@ -14,11 +14,19 @@ import TabPanel from '../ui/TabPanel';
 import CocktailNameFilter from './filters/CocktailNameFilter';
 import CocktailFirstLetterFilter from './filters/CocktailFirstLetterFilter';
 import CocktailAlcoholicFilter from './filters/CocktailAlcoholicFilter';
+import CocktailRandomFilter from './filters/CocktailRandomFilter';
+import CocktailIngredientFilter from './filters/CocktailIngredientFilter';
+import CocktailCategoryFilter from './filters/CocktailCategoryFilter';
+import CocktailGlassFilter from './filters/CocktailGlassFilter';
 
 const pages = new Map([
   ['name', 0],
   ['firstLetter', 1],
   ['alcoholic', 2],
+  ['random', 3],
+  ['ingredient', 4],
+  ['category', 5],
+  ['glass', 6],
 ]);
 
 interface ICocktailFiltersProps {
@@ -71,11 +79,40 @@ const CockTailFilters: React.FC<ICocktailFiltersProps> = ({
     [onFilterChange]
   );
 
+  const onSearchRandomHandler = React.useCallback(
+    (value: string) => {
+      onFilterChange({ searchUrl: '/random.php?value=', value: value });
+    },
+    [onFilterChange]
+  );
+
+  const onSearchIngredientHandler = React.useCallback(
+    (ingredient: string) => {
+      onFilterChange({ searchUrl: '/filter.php?i=', value: ingredient });
+    },
+    [onFilterChange]
+  );
+
+  const onSearchCategoryHandler = React.useCallback(
+    (category: string) => {
+      onFilterChange({ searchUrl: '/filter.php?c=', value: category });
+    },
+    [onFilterChange]
+  );
+
+  const onSearchGlassHandler = React.useCallback(
+    (glass: string) => {
+      onFilterChange({ searchUrl: '/filter.php?g=', value: glass });
+    },
+    [onFilterChange]
+  );
+
   React.useEffect(() => {
     const page = pages.get(queryParams.get('filter') || 'name');
     setValue(page || 0);
 
     const value = queryParams.get('value');
+
     if (value) {
       switch (page) {
         case 0:
@@ -87,6 +124,18 @@ const CockTailFilters: React.FC<ICocktailFiltersProps> = ({
         case 2:
           onSearchAlcoholicHandler(value);
           break;
+        case 3:
+          onSearchRandomHandler(value);
+          break;
+        case 4:
+          onSearchIngredientHandler(value);
+          break;
+        case 5:
+          onSearchCategoryHandler(value);
+          break;
+        case 6:
+          onSearchGlassHandler(value);
+          break;
         default:
           break;
       }
@@ -97,6 +146,10 @@ const CockTailFilters: React.FC<ICocktailFiltersProps> = ({
     onSearchNameHandler,
     onSearchFirstLetterHandler,
     onSearchAlcoholicHandler,
+    onSearchRandomHandler,
+    onSearchIngredientHandler,
+    onSearchCategoryHandler,
+    onSearchGlassHandler,
   ]);
 
   return (
@@ -108,7 +161,8 @@ const CockTailFilters: React.FC<ICocktailFiltersProps> = ({
         <Tabs
           value={value}
           onChange={onTabChangeHandler}
-          aria-label="basic tabs example"
+          variant="scrollable"
+          scrollButtons="auto"
         >
           <Tab
             label="Name"
@@ -131,6 +185,42 @@ const CockTailFilters: React.FC<ICocktailFiltersProps> = ({
               search: '?filter=alcoholic&value=Alcoholic',
             }}
           />
+          <Tab
+            label="Random"
+            {...a11yProps(3)}
+            component={Link}
+            to={{
+              pathname: '/cocktails',
+              search: '?filter=random&value=Random',
+            }}
+          />
+          <Tab
+            label="Ingredient"
+            {...a11yProps(4)}
+            component={Link}
+            to={{
+              pathname: '/cocktails',
+              search: '?filter=ingredient',
+            }}
+          />
+          <Tab
+            label="Category"
+            {...a11yProps(5)}
+            component={Link}
+            to={{
+              pathname: '/cocktails',
+              search: '?filter=category',
+            }}
+          />
+          <Tab
+            label="Glass"
+            {...a11yProps(6)}
+            component={Link}
+            to={{
+              pathname: '/cocktails',
+              search: '?filter=glass',
+            }}
+          />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -141,6 +231,18 @@ const CockTailFilters: React.FC<ICocktailFiltersProps> = ({
       </TabPanel>
       <TabPanel value={value} index={2}>
         <CocktailAlcoholicFilter />
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+        <CocktailRandomFilter />
+      </TabPanel>
+      <TabPanel value={value} index={4}>
+        <CocktailIngredientFilter />
+      </TabPanel>
+      <TabPanel value={value} index={5}>
+        <CocktailCategoryFilter />
+      </TabPanel>
+      <TabPanel value={value} index={6}>
+        <CocktailGlassFilter />
       </TabPanel>
     </Box>
   );

@@ -92,13 +92,16 @@ const CocktailDetails: React.FC = () => {
       )}
 
       {cocktail && (
-        <Card>
+        <Card sx={{ maxWidth: '650px', margin: '0 auto' }}>
           {/* Image */}
           {cocktail.strDrinkThumb && (
             <CardMedia
               component="img"
               alt={cocktail.strDrink}
-              height="100%"
+              sx={{
+                maxHeight: '500px',
+                maxWidth: '650px',
+              }}
               image={cocktail.strDrinkThumb}
             />
           )}

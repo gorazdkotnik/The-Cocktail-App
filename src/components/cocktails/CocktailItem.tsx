@@ -21,7 +21,6 @@ const CocktailItem: React.FC<ICocktailItemProps> = ({ cocktail }) => {
         <CardMedia
           component="img"
           alt={cocktail.strDrink}
-          height="140"
           image={cocktail.strDrinkThumb}
         />
       )}
