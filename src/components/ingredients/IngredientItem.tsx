@@ -43,7 +43,7 @@ const IngredientItem: React.FC<IIngredientItemProps> = ({ ingredient }) => {
         <Button
           size="small"
           component={Link}
-          to={`/ingredients/${ingredient.strIngredient}`}
+          to={`/ingredients/${ingredient.idIngredient}`}
         >
           Learn More
         </Button>

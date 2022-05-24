@@ -5,6 +5,7 @@ import Layout from '../../pages/Layout';
 import Cocktails from '../../pages/Cocktails';
 import CocktailDetails from '../../pages/CocktailDetails';
 import Ingredients from '../../pages/Ingredients';
+import IngredientDetails from '../../pages/IngredientDetails';
 import NoPage from '../../pages/NoPage';
 
 const RoutesConfig: React.FC = () => {
@@ -16,6 +17,7 @@ const RoutesConfig: React.FC = () => {
           <Route path="cocktails" element={<Cocktails />} />
           <Route path="cocktails/:id" element={<CocktailDetails />} />
           <Route path="ingredients" element={<Ingredients />} />
+          <Route path="ingredients/:id" element={<IngredientDetails />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
